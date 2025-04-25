@@ -18,5 +18,4 @@ public interface Board {
 
   CollisionResult moveHero(int drow, int dcol);
 
-  CollisionResult moveEnemies();
 }
