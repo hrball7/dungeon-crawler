@@ -1,6 +1,7 @@
 package com.comp301.a08dungeon.view;
 
 import com.comp301.a08dungeon.controller.ControllerImpl;
+import com.comp301.a08dungeon.model.Model;
 import com.comp301.a08dungeon.model.ModelImpl;
 import com.comp301.a08dungeon.model.Observer;
 import javafx.scene.Parent;
@@ -17,18 +18,24 @@ public class View implements FXComponent, Observer {
   private int height;
   private Stage stage;
 
+
   public View(ControllerImpl controller, ModelImpl model, int width, int height, Stage stage){
     this.controller = controller;
     this.model = model;
     this.width = width;
     this.height = height;
+    this.stage = stage;
+
   }
 
 
   public Parent render() {
-    Pane s = new StackPane();
-    s.getChildren().add(new Label("Hello, World"));
-    return s;
+
+    if (model.getStatus() == Model.STATUS.END_GAME) {
+      return new TitleScreenView(model, controller).render();
+    } else {
+      return new GameView(model, controller).render();
+    }
   }
 
   @Override
@@ -37,4 +44,5 @@ public class View implements FXComponent, Observer {
     scene.getStylesheets().add("dungeon.css");
     stage.setScene(scene);
   }
+
 }

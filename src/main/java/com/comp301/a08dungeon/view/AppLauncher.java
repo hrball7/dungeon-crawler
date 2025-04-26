@@ -13,12 +13,14 @@ public class AppLauncher extends Application {
   @Override
   public void start(Stage stage) {
       stage.setTitle("Helaina's Dungeon Crawler");
+
       ModelImpl model = new ModelImpl(width, height);
       ControllerImpl pc = new ControllerImpl(model);
       View view = new View(pc, model, width, height, stage);
       model.addObserver(view);
       Scene scene = new Scene(view.render(), width, height);
       scene.getStylesheets().add("dungeon.css");
+      stage.setScene(scene);
       stage.show();
   }
 }
