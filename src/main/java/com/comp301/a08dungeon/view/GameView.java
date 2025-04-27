@@ -14,6 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.io.File;
 
@@ -28,30 +30,37 @@ public class GameView implements FXComponent {
     }
     @Override
     public Parent render() {
+        //BorderPane root = new BorderPane();
+
         GridPane board = new GridPane();
         board.setGridLinesVisible(true);
+        board.setPrefSize(500,500);
+        board.setAlignment(Pos.CENTER);
+        board.getStyleClass().add("grid-pane");
         int height = model.getHeight();
         int width = model.getWidth();
 
-//        BackgroundImage backgroundImage = new BackgroundImage(
-//                new Image(getClass().getResource("src/main/resources/Background.png").toExternalForm(), width * 40, height * 40, true, true),
-//        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                Posn pos = new Posn(row, col);
-                Piece piece = model.get(pos);
+                Piece piece = model.get(new Posn(row, col));
 
                 if (piece != null) {
-                    Image img = new Image(new File(piece.getResourcePath()).toURI().toString());
+                    String path = piece.getResourcePath();
+                    Image img = new Image(new File(path).toURI().toString());
                     ImageView imgView = new ImageView(img);
-                    imgView.setFitWidth(100);
-                    imgView.setFitHeight(100);
+                    imgView.setFitWidth(50);
+                    imgView.setFitHeight(50);
                     board.add(imgView, col, row);
+                } else {
+                    Rectangle rectangle = new Rectangle(50, 50);
+                    rectangle.setFill(Color.TRANSPARENT);
+                    board.add(rectangle, col, row);
                 }
-                board.setAlignment(Pos.CENTER);
             }
         }
+//        board.setHgap(0);
+//        board.setVgap(0);
+//        root.setCenter(board);
 
         Label scoreLabel = new Label("Score: " + model.getCurScore());
 
@@ -77,6 +86,6 @@ public class GameView implements FXComponent {
         root.setAlignment(Pos.CENTER);
         root.getStyleClass().add("game-view");
 
-        return root;
+       return root;
     }
 }

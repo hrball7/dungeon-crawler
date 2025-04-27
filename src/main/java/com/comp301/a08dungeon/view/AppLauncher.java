@@ -18,8 +18,13 @@ public class AppLauncher extends Application {
       ControllerImpl pc = new ControllerImpl(model);
       View view = new View(pc, model, width, height, stage);
       model.addObserver(view);
-      Scene scene = new Scene(view.render(), width, height);
+
+      int sceneWidth = 600;
+      int sceneHeight = 600;
+
+      Scene scene = new Scene(view.render(), sceneWidth, sceneHeight);
       scene.getStylesheets().add("dungeon.css");
+
       stage.setScene(scene);
       stage.show();
   }

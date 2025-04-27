@@ -2,7 +2,7 @@ package com.comp301.a08dungeon.model.pieces;
 
 public class Hero extends APiece implements MovablePiece {
   public Hero() {
-    super("hero", "src/main/resources/Images/FairyHero.png");
+    super("hero", "src/main/resources/FairyHero.png");
   }
 
   public CollisionResult collide(Piece other) {

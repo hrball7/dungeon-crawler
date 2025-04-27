@@ -4,7 +4,7 @@ public class Treasure extends APiece {
   private final int value;
 
   public Treasure() {
-    super("treasure", "src/main/resources/Images/Treasure.png");
+    super("treasure", "src/main/resources/Treasure.png");
     value = 100;
   }
 

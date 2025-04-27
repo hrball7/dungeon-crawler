@@ -80,7 +80,7 @@ public class BoardImpl implements Board {
         board[i][j] = null;
       }
     }
-    if ((enemies + treasures + walls) >= width * height) {
+    if ((enemies + treasures + walls + 2) >= width * height) {
       throw new IllegalArgumentException();
     }
 
@@ -92,71 +92,52 @@ public class BoardImpl implements Board {
     heroPos = null;
     exitPos = null;
 
-    // create list of used positions, everytime i place something, add pos to list
-    List<Posn> usedPosn = new ArrayList<>(height * width);
-
-    // place hero
-    Posn pos = getRandoPos(usedPosn);
-    hero = new Hero();
-    hero.setPosn(pos);
-    heroPos = pos;
-    board[pos.getRow()][pos.getCol()] = hero;
-    usedPosn.add(pos);
-
-    // place exit
-    pos = getRandoPos(usedPosn);
-    exit = new Exit();
-    exit.setPosn(pos);
-    exitPos = pos;
-    board[pos.getRow()][pos.getCol()] = exit;
-    usedPosn.add(pos);
-
-    // place enemies
-    for (int i = 0; i < enemies; i++) {
-      pos = getRandoPos(usedPosn);
-      Enemy enemy = new Enemy();
-      enemy.setPosn(pos);
-      board[pos.getRow()][pos.getCol()] = enemy;
-      enemiesList.add(enemy);
-      usedPosn.add(pos);
-    }
-
-    // place treasures
-    for (int i = 0; i < treasures; i++) {
-      pos = getRandoPos(usedPosn);
-      Treasure treasure = new Treasure();
-      treasure.setPosn(pos);
-      board[pos.getRow()][pos.getCol()] = treasure;
-      treasuresList.add(treasure);
-      usedPosn.add(pos);
-    }
-
-    // place walls
-    for (int i = 0; i < walls; i++) {
-      pos = getRandoPos(usedPosn);
-      Wall wall = new Wall();
-      wall.setPosn(pos);
-      board[pos.getRow()][pos.getCol()] = wall;
-      wallsList.add(wall);
-      usedPosn.add(pos);
-    }
-  }
-
-  // helper method for init
-  public Posn getRandoPos(List<Posn> used) {
-    Posn pos = new Posn(0, 0);
-    boolean found = false;
-
-    while (!found) {
-      int row = random.nextInt(height);
-      int col = random.nextInt(width);
-
-      pos = new Posn(row, col);
-      if (!used.contains(pos)) {
-        found = true;
+    List<Posn> allPositions = new ArrayList<>();
+    for (int row = 0; row < height; row ++) {
+      for (int col = 0; col < width; col++) {
+        allPositions.add(new Posn(row, col));
       }
     }
-    return pos;
+
+    Collections.shuffle(allPositions, random);
+    int index = 0;
+    //place hero
+    hero = new Hero();
+    heroPos = allPositions.get(index++);
+    set(hero, heroPos);
+    board[heroPos.getRow()][heroPos.getCol()] = hero;
+
+    //place exit
+
+    exit = new Exit();
+    exitPos = allPositions.get(index++);
+    set(exit, exitPos);
+    board[exitPos.getRow()][exitPos.getCol()] = exit;
+
+    //place for enemies
+    for (int i = 0; i < enemies; i++) {
+      Enemy enemy = new Enemy();
+      Posn enemyPos = allPositions.get(index++);
+      set(enemy, enemyPos);
+      //board[enemyPos.getRow()][enemyPos.getCol()] = enemy;
+      enemiesList.add(enemy);
+    }
+    //place treasures
+    for (int i = 0; i < treasures; i++) {
+      Treasure treasure = new Treasure();
+      Posn treasurePos = allPositions.get(index++);
+      set(treasure, treasurePos);
+      //board[treasurePos.getRow()][treasurePos.getCol()] = treasure;
+      treasuresList.add(treasure);
+    }
+    //place walls
+    for (int i = 0; i < walls; i++) {
+      Wall wall = new Wall();
+      Posn wallPos = allPositions.get(index++);
+      set(wall, wallPos);
+      //board[wallPos.getRow()][wallPos.getCol()] = wall;
+      wallsList.add(wall);
+    }
   }
 
   @Override
@@ -261,11 +242,20 @@ public class BoardImpl implements Board {
         if (targetPos instanceof Wall || targetPos instanceof Exit || targetPos instanceof Enemy) {
           continue;
         }
-        if (targetPos == null || targetPos instanceof Hero) {
+        if (targetPos == null) {
+          set(enemy, position);
+          break;
+        }
+        if (targetPos instanceof Hero) {
           CollisionResult cr = enemy.collide(targetPos);
           if (cr.getResults() == CollisionResult.Result.GAME_OVER) {
             result = new CollisionResult(score, CollisionResult.Result.GAME_OVER);
           }
+          set(enemy, position);
+          break;
+        }
+        if (targetPos instanceof Treasure) {
+          treasuresList.remove((Treasure) targetPos);
           set(enemy, position);
           break;
         }

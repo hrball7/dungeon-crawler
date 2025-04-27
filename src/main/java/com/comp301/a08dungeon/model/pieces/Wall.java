@@ -5,6 +5,6 @@ import com.comp301.a08dungeon.model.board.Posn;
 public class Wall extends APiece {
 
   public Wall() {
-    super("wall", "src/main/resources/Images/Wall.png");
+    super("wall", "src/main/resources/Wall.png");
   }
 }
