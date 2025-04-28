@@ -13,42 +13,40 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class TitleScreenView implements FXComponent {
-    private final ControllerImpl controller;
-    private final ModelImpl model;
+  private final ControllerImpl controller;
+  private final ModelImpl model;
 
+  public TitleScreenView(ModelImpl model, ControllerImpl controller) {
+    this.controller = controller;
+    this.model = model;
+  }
 
-    public TitleScreenView(ModelImpl model, ControllerImpl controller) {
-        this.controller = controller;
-        this.model = model;
-    }
-    @Override
-    public Parent render() {
-        Label title = new Label("Dungeon Crawler");
-        title.getStyleClass().add("title");
+  @Override
+  public Parent render() {
+    Label title = new Label("Dungeon Crawler");
+    title.getStyleClass().add("title");
 
-        Label last = new Label("Last Score: " + model.getlabelScore());
-        last.getStyleClass().add("score-last");
+    Label last = new Label("Last Score: " + model.getlabelScore());
+    last.getStyleClass().add("score-last");
 
-        Label high = new Label("High Score: " + model.getHighScore());
-        high.getStyleClass().add("score-high");
+    Label high = new Label("High Score: " + model.getHighScore());
+    high.getStyleClass().add("score-high");
 
-        Label label = new Label("Created by Helaina Ball");
+    Label label = new Label("Created by Helaina Ball");
 
-        Text text = new Text("Created by Helaina Ball");
-        text.getStyleClass().add("text-info");
+    Text text = new Text("Created by Helaina Ball");
+    text.getStyleClass().add("text-info");
 
-        Button startButton = new Button("Start Game");
-        startButton.setOnAction(e -> Platform.runLater(() -> controller.startGame()));
+    Button startButton = new Button("Start Game");
+    startButton.setOnAction(e -> Platform.runLater(() -> controller.startGame()));
 
-        //startButton.setOnAction(e -> controller.startGame());
+    VBox vbox = new VBox(20, title, last, high, startButton, label);
+    vbox.setAlignment(Pos.CENTER);
 
-        VBox vbox = new VBox(20, title, last, high, startButton, label);
-        vbox.setAlignment(Pos.CENTER);
+    StackPane root = new StackPane(vbox);
+    root.setPrefSize(500, 500);
+    root.getStyleClass().add("title-screen");
 
-        StackPane root = new StackPane(vbox);
-        root.setPrefSize(500, 500);
-        root.getStyleClass().add("title-screen");
-
-        return root;
-    }
+    return root;
+  }
 }

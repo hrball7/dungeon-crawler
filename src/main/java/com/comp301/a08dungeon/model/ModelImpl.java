@@ -80,7 +80,6 @@ public class ModelImpl implements Model {
         int enemy = level + 1;
         int treasure = level + 2;
         int area = board.getHeight() * board.getWidth();
-        //int wallCalc = 2 + (area / 5);
         int wall = 4;
 
         board.clear();
@@ -157,7 +156,6 @@ public class ModelImpl implements Model {
             int enemy = level + 1;
             int treasure = level + 2;
             int wall = 4;
-//            int wall = 2 + ((board.getHeight() * board.getWidth()) / 4);
             board.init(enemy, treasure, wall);
         } else if (result.getResults() == CollisionResult.Result.GAME_OVER) {
             curScore = result.getPoints();
