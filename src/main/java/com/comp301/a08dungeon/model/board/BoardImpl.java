@@ -19,6 +19,7 @@ public class BoardImpl implements Board {
   private List<Enemy> enemiesList = new ArrayList<>();
   private Posn heroPos;
   private Posn exitPos;
+  private int score;
 
   public BoardImpl(int width, int height) {
     if (width <= 0 || height <= 0) {
@@ -108,7 +109,6 @@ public class BoardImpl implements Board {
     board[heroPos.getRow()][heroPos.getCol()] = hero;
 
     //place exit
-
     exit = new Exit();
     exitPos = allPositions.get(index++);
     set(exit, exitPos);
@@ -138,6 +138,18 @@ public class BoardImpl implements Board {
       //board[wallPos.getRow()][wallPos.getCol()] = wall;
       wallsList.add(wall);
     }
+  }
+
+  public void clear() {
+    for (int row = 0; row < getHeight(); row++) {
+      for (int col = 0; col < getWidth(); col++) {
+        board[row][col] = null;
+      }
+    }
+  }
+
+  public int getScore() {
+    return score;
   }
 
   @Override
@@ -188,9 +200,9 @@ public class BoardImpl implements Board {
   public CollisionResult moveHero(int drow, int dcol) {
     int newRow = heroPos.getRow() + drow;
     int newCol = heroPos.getCol() + dcol;
-    int score = 0;
+//    int score = 0;
     if (newRow >= height || newRow < 0 || newCol >= width || newCol < 0) {
-      return new CollisionResult(0, CollisionResult.Result.CONTINUE);
+      return new CollisionResult(score, CollisionResult.Result.CONTINUE);
     }
 
     Piece targetP = board[newRow][newCol];
@@ -206,6 +218,7 @@ public class BoardImpl implements Board {
       set(hero, newPos);
       heroPos = newPos;
       result = new CollisionResult(score, CollisionResult.Result.GAME_OVER);
+      score = 0;
     } else if (targetP instanceof Treasure) {
       treasuresList.remove((Treasure) targetP);
       set(hero, newPos);

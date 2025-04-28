@@ -12,20 +12,20 @@ public class AppLauncher extends Application {
 
   @Override
   public void start(Stage stage) {
-      stage.setTitle("Helaina's Dungeon Crawler");
 
       ModelImpl model = new ModelImpl(width, height);
       ControllerImpl pc = new ControllerImpl(model);
-      View view = new View(pc, model, width, height, stage);
+      View view = new View(pc, model, 800, 800, stage);
       model.addObserver(view);
 
       int sceneWidth = 600;
       int sceneHeight = 600;
 
-      Scene scene = new Scene(view.render(), sceneWidth, sceneHeight);
-      scene.getStylesheets().add("dungeon.css");
+      //Scene scene = new Scene(view.render(), sceneWidth, sceneHeight);
+      //scene.getStylesheets().add("dungeon.css");
 
-      stage.setScene(scene);
+      //stage.setScene(scene);
+      stage.setTitle("Dungeon Crawler");
       stage.show();
   }
 }

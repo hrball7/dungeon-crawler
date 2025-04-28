@@ -18,6 +18,9 @@ public class View implements FXComponent, Observer {
   private int height;
   private Stage stage;
 
+  private Scene scene;
+  private StackPane root;
+
 
   public View(ControllerImpl controller, ModelImpl model, int width, int height, Stage stage){
     this.controller = controller;
@@ -25,6 +28,13 @@ public class View implements FXComponent, Observer {
     this.width = width;
     this.height = height;
     this.stage = stage;
+
+    root = new StackPane();
+    scene = new Scene(root, width, height);
+    scene.getStylesheets().add("dungeon.css");
+    stage.setScene(scene);
+
+    update();
 
   }
 
@@ -40,9 +50,11 @@ public class View implements FXComponent, Observer {
 
   @Override
   public void update() {
-    Scene scene = new Scene(render(), width, height);
-    scene.getStylesheets().add("dungeon.css");
-    stage.setScene(scene);
+    root.getChildren().clear();
+    root.getChildren().add(render());
+//    Scene scene = new Scene(render(), width, height);
+//    scene.getStylesheets().add("dungeon.css");
+//    stage.setScene(scene);
   }
 
 }

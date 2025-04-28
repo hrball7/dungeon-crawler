@@ -7,6 +7,7 @@ import com.comp301.a08dungeon.model.Observer;
 import com.comp301.a08dungeon.model.board.BoardImpl;
 import com.comp301.a08dungeon.model.board.Posn;
 import com.comp301.a08dungeon.model.pieces.*;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -48,11 +49,11 @@ public class GameView implements FXComponent {
                     String path = piece.getResourcePath();
                     Image img = new Image(new File(path).toURI().toString());
                     ImageView imgView = new ImageView(img);
-                    imgView.setFitWidth(50);
-                    imgView.setFitHeight(50);
+                    imgView.setFitWidth(70);
+                    imgView.setFitHeight(70);
                     board.add(imgView, col, row);
                 } else {
-                    Rectangle rectangle = new Rectangle(50, 50);
+                    Rectangle rectangle = new Rectangle(70, 70);
                     rectangle.setFill(Color.TRANSPARENT);
                     board.add(rectangle, col, row);
                 }
@@ -69,10 +70,16 @@ public class GameView implements FXComponent {
         Button left = new Button("←");
         Button right = new Button("→");
 
-        up.setOnAction(e -> controller.moveUp());
-        down.setOnAction(e -> controller.moveDown());
-        left.setOnAction(e -> controller.moveLeft());
-        right.setOnAction(e -> controller.moveRight());
+//        up.setOnAction(e -> Platform.runLater(() -> controller.moveUp()));
+//        down.setOnAction(e -> controller.moveDown());
+//        left.setOnAction(e -> controller.moveLeft());
+//        right.setOnAction(e -> controller.moveRight());
+
+        up.setOnAction(e -> Platform.runLater(() -> controller.moveUp()));
+        down.setOnAction(e -> Platform.runLater(() -> controller.moveDown()));
+        left.setOnAction(e -> Platform.runLater(() -> controller.moveLeft()));
+        right.setOnAction(e -> Platform.runLater(() -> controller.moveRight()));
+
 
         VBox vertical = new VBox(up, new HBox(left, right), down);
         vertical.setAlignment(Pos.CENTER);

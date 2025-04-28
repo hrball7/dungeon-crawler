@@ -16,6 +16,7 @@ public class ModelImpl implements Model {
     private BoardImpl board;
     private int level;
     private List<Observer> observers = new ArrayList<>();
+    private int labelScore;
 
     public ModelImpl(int width, int height) {
         board = new BoardImpl(width, height);
@@ -74,20 +75,21 @@ public class ModelImpl implements Model {
     @Override
     public void startGame() {
         status = STATUS.IN_PROGRESS;
-        curScore = 0;
+        this.curScore = 0;
         level = 1;
         int enemy = level + 1;
         int treasure = level + 2;
         int area = board.getHeight() * board.getWidth();
         //int wallCalc = 2 + (area / 5);
         int wall = 4;
+
+        board.clear();
         board.init(enemy, treasure, wall);
 
         if ((enemy + treasure + wall + 2) > (board.getHeight()) * board.getWidth()) {
             endGame();
-        }
-
-        notifyObservers();
+        } else {
+        notifyObservers();}
     }
 
     @Override
@@ -96,7 +98,13 @@ public class ModelImpl implements Model {
         if (curScore > highScore) {
             highScore = curScore;
         }
+        labelScore = curScore;
+        curScore = 0;
         notifyObservers();
+    }
+
+    public int getlabelScore() {
+        return labelScore;
     }
 
     @Override
@@ -148,7 +156,7 @@ public class ModelImpl implements Model {
             level++;
             int enemy = level + 1;
             int treasure = level + 2;
-            int wall = level + 1;
+            int wall = 4;
 //            int wall = 2 + ((board.getHeight() * board.getWidth()) / 4);
             board.init(enemy, treasure, wall);
         } else if (result.getResults() == CollisionResult.Result.GAME_OVER) {

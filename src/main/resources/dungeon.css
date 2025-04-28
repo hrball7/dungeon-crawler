@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 
 .root {
-    -fx-background-color: linear-gradient(to bottom right, #001400, #002200);
+    -fx-background-color: linear-gradient(to bottom right, #001000, #002200);
 }
 
 .button {
@@ -25,3 +25,5 @@
     -fx-font-size: 30px;
     -fx-font-family: "Merienda", "Arial", sans-serif;
 }
+
+

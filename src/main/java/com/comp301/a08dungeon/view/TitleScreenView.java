@@ -3,12 +3,14 @@ package com.comp301.a08dungeon.view;
 import com.comp301.a08dungeon.controller.ControllerImpl;
 import com.comp301.a08dungeon.model.ModelImpl;
 import com.comp301.a08dungeon.model.Observer;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class TitleScreenView implements FXComponent {
     private final ControllerImpl controller;
@@ -21,20 +23,26 @@ public class TitleScreenView implements FXComponent {
     }
     @Override
     public Parent render() {
-        Label title = new Label("Helaina's Dungeon Crawler");
+        Label title = new Label("Dungeon Crawler");
         title.getStyleClass().add("title");
 
-        Label lastScore = new Label("Last Score: " + model.getCurScore());
+        Label lastScore = new Label("Last Score: " + model.getlabelScore());
         Label highScore = new Label("High Score: " + model.getHighScore());
 
-        Button startButton = new Button("Start Game");
-        startButton.setOnAction(e -> controller.startGame());
+        Label label = new Label("Created by Helaina Ball");
 
-        VBox vbox = new VBox(20, title, lastScore, highScore, startButton);
+        Text text = new Text("Created by Helaina Ball");
+
+        Button startButton = new Button("Start Game");
+        startButton.setOnAction(e -> Platform.runLater(() -> controller.startGame()));
+
+        //startButton.setOnAction(e -> controller.startGame());
+
+        VBox vbox = new VBox(20, title, lastScore, highScore, startButton, text);
         vbox.setAlignment(Pos.CENTER);
 
         StackPane root = new StackPane(vbox);
-        root.setPrefSize(800, 600);
+        root.setPrefSize(500, 500);
         root.getStyleClass().add("title-screen");
 
         return root;
