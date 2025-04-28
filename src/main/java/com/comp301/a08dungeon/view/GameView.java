@@ -64,6 +64,7 @@ public class GameView implements FXComponent {
 //        root.setCenter(board);
 
         Label scoreLabel = new Label("Score: " + model.getCurScore());
+        scoreLabel.getStyleClass().add("score-high");
 
         Button up = new Button("↑");
         Button down = new Button("↓");

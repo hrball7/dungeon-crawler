@@ -22,8 +22,31 @@
 
 .label {
     -fx-text-fill: #de5285;
-    -fx-font-size: 30px;
     -fx-font-family: "Merienda", "Arial", sans-serif;
+}
+
+.title {
+-fx-font-size: 50px;
+-fx-text-fill: #de5285;
+-fx-font-family: "Merienda", "Arial", sans-serif;
+}
+
+.score-last {
+-fx-font-size: 35px;
+-fx-text-fill: #de5285;
+-fx-font-family: "Merienda", "Arial", sans-serif;
+}
+
+.score-high {
+-fx-font-size: 35px;
+-fx-text-fill: #de5285;
+-fx-font-family: "Merienda", "Arial", sans-serif;
+}
+
+.text-info {
+-fx-font-size: 15px;
+-fx-text-fill: #de5285;
+-fx-font-family: "Merienda", "Arial", sans-serif;
 }
 
 

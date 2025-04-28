@@ -26,19 +26,23 @@ public class TitleScreenView implements FXComponent {
         Label title = new Label("Dungeon Crawler");
         title.getStyleClass().add("title");
 
-        Label lastScore = new Label("Last Score: " + model.getlabelScore());
-        Label highScore = new Label("High Score: " + model.getHighScore());
+        Label last = new Label("Last Score: " + model.getlabelScore());
+        last.getStyleClass().add("score-last");
+
+        Label high = new Label("High Score: " + model.getHighScore());
+        high.getStyleClass().add("score-high");
 
         Label label = new Label("Created by Helaina Ball");
 
         Text text = new Text("Created by Helaina Ball");
+        text.getStyleClass().add("text-info");
 
         Button startButton = new Button("Start Game");
         startButton.setOnAction(e -> Platform.runLater(() -> controller.startGame()));
 
         //startButton.setOnAction(e -> controller.startGame());
 
-        VBox vbox = new VBox(20, title, lastScore, highScore, startButton, text);
+        VBox vbox = new VBox(20, title, last, high, startButton, label);
         vbox.setAlignment(Pos.CENTER);
 
         StackPane root = new StackPane(vbox);
