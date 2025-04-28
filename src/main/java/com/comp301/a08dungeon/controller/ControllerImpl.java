@@ -1,12 +1,13 @@
 package com.comp301.a08dungeon.controller;
 
+import com.comp301.a08dungeon.model.Model;
 import com.comp301.a08dungeon.model.ModelImpl;
 import com.comp301.a08dungeon.model.board.BoardImpl;
 
 public class ControllerImpl implements Controller{
-    private final ModelImpl model;
+    private final Model model;
 
-    public ControllerImpl(ModelImpl model){
+    public ControllerImpl(Model model){
         this.model = model;
     }
 
