@@ -14,21 +14,21 @@ The backend game logic handles the dungeon layout, hero movement, enemies, treas
 * Follows MVC + Observer for clear separation of logic, rendering, and input.
 
 ### Tech Stack
--Java
--JavaFX
--Maven
+* Java
+* JavaFX
+* Maven
 
 ### Instructions to run the game
 
 
 ### Project Structure
--model/ → Core game logic (board, pieces, movement, scoring)
--view/ → JavaFX user interface
--controller/ → Handles user input and connects model & view
--resources/ → Game art (images for hero, enemies, walls, treasure, exit)
+* model/ → Core game logic (board, pieces, movement, scoring)
+* view/ → JavaFX user interface
+* controller/ → Handles user input and connects model & view
+* resources/ → Game art (images for hero, enemies, walls, treasure, exit)
 
 ### Future Improvements
--Smarter enemy AI
--More diverse room generation
--Customizable character sprites
--Sound effects and music
+* Smarter enemy AI
+* More diverse room generation
+* Customizable character sprites
+* Sound effects and music
