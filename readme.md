@@ -6,12 +6,12 @@ A 2D dungeon crawler game built in Java. The project follows the Model-View-Cont
 The backend game logic handles the dungeon layout, hero movement, enemies, treasures, and collisions. The frontend (JavaFX) provides an interactive grid-based interface where players can explore, collect treasure, and avoid enemies.
 
 ### Features
--Procedurally generated dungeon boards with walls, treasures, enemies, and an exit.
--Hero movement (up, down, left, right) with collision handling.
--Enemy AI with random movement and interaction rules.
--Scoring system with treasures and level progression.
--Multiple levels that increase in difficulty.
--Follows MVC + Observer for clear separation of logic, rendering, and input.
+* Procedurally generated dungeon boards with walls, treasures, enemies, and an exit.
+* Hero movement (up, down, left, right) with collision handling.
+* Enemy AI with random movement and interaction rules.
+* Scoring system with treasures and level progression.
+* Multiple levels that increase in difficulty.
+* Follows MVC + Observer for clear separation of logic, rendering, and input.
 
 ### Tech Stack
 -Java
