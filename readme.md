@@ -18,9 +18,6 @@ The backend game logic handles the dungeon layout, hero movement, enemies, treas
 * JavaFX
 * Maven
 
-### Instructions to run the game
-
-
 ### Project Structure
 * model/ → Core game logic (board, pieces, movement, scoring)
 * view/ → JavaFX user interface
